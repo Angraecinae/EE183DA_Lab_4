@@ -25,21 +25,22 @@ function [ state, covflag, cov ] = kalmanFilter( state, covflag, cov, ...
     wheel_radius = 0.05; % [m]
     car_width = 0.045; % [m]
     accel = accel / 100; % [m/s^2]
-    dy = 0;
     if (turn == 0) 
-        dx = (dx * wheel_radius); % [m/s]
-        %dy = (dx * wheel_radius) * sin(theta);
+        dx = (dx * wheel_radius) * cos(state(1, 5)); % [m/s]
+        dy = (dx * wheel_radius) * sin(state(1, 5)); % [m/s]
+        dtheta = 0;
     elseif (turn == 1)
         dx = 0;
-        %dy = 0;
+        dy = 0;
         dtheta = (wheel_radius / car_width) * dx;
     else
         dx = 0;
-        %dy = 0;
+        dy = 0;
         dtheta = - (wheel_radius / car_width) * dx;
+    
     end
-    %accum_theta = state(1, 5);
     t = t / 1000; % [s]
+    theta = state(1, 5);
     state = state';
     % from sensor data
     measurements = [dx; dy; theta; dtheta];
@@ -90,5 +91,4 @@ function [ state, covflag, cov ] = kalmanFilter( state, covflag, cov, ...
     state = state + K * (measurements - C * state); % update estimation
     cov = (eye(6) - K * C) * cov; % update covariance
     state = state';
-    %state(1, 5) = accum_theta + theta;
 end
