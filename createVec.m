@@ -8,7 +8,6 @@ function [ vector ] = createVec( position, coordinates )
     vector(1, 1) = sqrt((coordinates(2) - position(2)).^2 + ...
         (coordinates(1) - position(1)).^2);
     vector(1, 2) = atan((coordinates(2) - position(2)) / ...
-        (coordinates(1) - position(1)));
-    vector(1, 3) = coordinates(1, 3) - position(1, 3) + vector(1, 2);
-end
+        (coordinates(1) - position(1))) - position(3);
+    vector(1, 3) = coordinates(1, 3) - position(1, 3);
 

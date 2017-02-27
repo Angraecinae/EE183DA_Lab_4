@@ -24,9 +24,10 @@ function [ state, covflag, cov ] = kalmanFilter( state, covflag, cov, ...
 %         cov, matrix
     wheel_radius = 0.5; % [cm]
     dx = dx * wheel_radius;
+    t = t / 1000; % [s]
     state = state';
     % from sensor data
-    measurements = [dx; dy; theta; t];
+    measurements = [dx; 0; theta; t];
     % define state space model 
     A = [1 0 t 0 0 0; ...
          0 1 0 t 0 0; ...
@@ -70,7 +71,7 @@ function [ state, covflag, cov ] = kalmanFilter( state, covflag, cov, ...
     % kalman filter
     state = A * state + B * accel; % predict next state
     cov = A * cov * A' + p_error; % predict next covariance
-    K = cov * C * inv(C * cov * C' + m_error); % kalman gain
+    K = cov * C' * inv(C * cov * C' + m_error); % kalman gain
     state = state + K * (measurements - C * state); % update estimation
     cov = (eye(6) - K * C) * cov; % update covariance
     state = state';

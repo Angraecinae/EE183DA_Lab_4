@@ -2,7 +2,7 @@ function [ array ] = imu( rot_left, rot_right, interval, turn )
 %  Input: rot_left, double [rad/s]
 %         rot_right, double [rad/s]
 %         interval, double [ms]
-%         turn, boolean [0 or 1]
+%         turn, integer [0 to 2]
 % Output: array, double 1 x 3 array, {accel_x, accel_y, rot_z}
 %         accel_x, [cm/s^2]
 %         accel_y, [cm/s^2]
@@ -19,11 +19,16 @@ function [ array ] = imu( rot_left, rot_right, interval, turn )
         accel_y = 0;
         rot_z = 0;
     % Case 2: pure rotational movement
-    else 
+    elseif (turn == 1) 
         accel_x = 0;
         accel_y = 0;
         rot_z = (wheel_radius / car_width) * rot_left * interval;
         rot_z = rot_z + norm(rot_z, (rot_z / 5));
+    else
+        accel_x = 0;
+        accel_y = 0;
+        rot_z = - (wheel_radius / car_width) * rot_left * interval;
+        rot_z = rot_z + norm(rot_z, (rot_z / 5));        
     end
     array(1, 1) = accel_x;
     array(1, 2) = accel_y;
