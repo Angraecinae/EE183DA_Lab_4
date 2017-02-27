@@ -1,11 +1,11 @@
 function [ array ] = irSensor( pwm_left, pwm_right, cycle )
 %  Input: cycle, integer
 % Output: array, double 2 x 3 array
-%         rotational_left double [rad/s] (noise corrupted)
-%         rotational_right [rad/s] (noise corrupted)
+%         rotational_left, double [rad/s] (noise corrupted)
+%         rotational_right, [rad/s] (noise corrupted)
 %         cycle, integer
-%         rotational_left double [rad/s] (actual)
-%         rotational_right [rad/s] (actual)
+%         rotational_left, double [rad/s] (actual)
+%         rotational_right, [rad/s] (actual)
 %         cycle, integer
     if (pwm_left < 25) 
         rotational_left = 0;
