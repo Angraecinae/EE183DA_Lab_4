@@ -1,5 +1,5 @@
 function [ state, covflag, cov ] = kalmanFilter( state, covflag, cov, ...
-    dx, theta, accel, t )
+    dx, theta, accel, t, turn )
 %  Input: state double 1 x 6 array {x, y, dx, dy, theta, dtheta}
 %         x, double [cm]         
 %         y, double [cm]
@@ -23,11 +23,20 @@ function [ state, covflag, cov ] = kalmanFilter( state, covflag, cov, ...
 %         covflag, boolean [0 or 1] 
 %         cov, matrix
     wheel_radius = 0.5; % [cm]
-    dx = dx * wheel_radius;
+    car_width = 0.45; % [cm]
+    if (turn == 0) 
+        dx = dx * wheel_radius;
+    elseif (turn == 1)
+        dx = 0;
+        dtheta = (wheel_radius / car_width) * dx;
+    else
+        dx = 0;
+        dtheta = - (wheel_radius / car_width) * dx;
+    end
     t = t / 1000; % [s]
     state = state';
     % from sensor data
-    measurements = [dx; 0; theta; t];
+    measurements = [dx; 0; theta; dtheta];
     % define state space model 
     A = [1 0 t 0 0 0; ...
          0 1 0 t 0 0; ...
