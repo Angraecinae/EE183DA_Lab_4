@@ -31,6 +31,8 @@ while (motor_array(1, 1) ~= 0 && ...
     disp('Current Vector: ');
     disp(vector);
     motor_array = motorControl(vector(1, 1), vector(1, 2), vector(1, 3));
+    disp('Motor Control: ');
+    disp(motor_array);
     ir_array = irSensor(motor_array(1, 1), motor_array(1, 2), cycle);
     imu_array = imu(ir_array(2, 1), ir_array(2, 2), ...
     motor_array(1, 3), motor_array(1, 4));
