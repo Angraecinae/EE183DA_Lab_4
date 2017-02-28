@@ -23,12 +23,12 @@ function [ array ] = imu( rot_left, rot_right, interval, turn )
         accel_x = 0;
         accel_y = 0;
         rot_z = (wheel_radius / car_width) * rot_left * interval;
-        rot_z = rot_z * (1 + norm(0, (rot_z / 2.5)));
+        rot_z = rot_z + norm(0, (rot_z / 10));
     else
         accel_x = 0;
         accel_y = 0;
         rot_z = - (wheel_radius / car_width) * rot_left * interval;
-        rot_z = rot_z * (1 + norm(0, (rot_z / 2.5)));        
+        rot_z = rot_z + norm(0, (rot_z / 10));        
     end
     array(1, 1) = accel_x;
     array(1, 2) = accel_y;

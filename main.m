@@ -59,4 +59,4 @@ while (motor_array(1, 1) ~= 0 && ...
     x_position_real(1, counter) = position_real(1, 1);
     y_position_real(1, counter) = position_real(1, 2);
 end
-figure, plot(x_position_sim, y_position_sim, x_position_real, y_position_real); 
+figure, plot(x_position_sim, y_position_sim, 'b', x_position_real, y_position_real, 'r'); 
