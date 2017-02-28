@@ -46,8 +46,8 @@ function [ array ] = irSensor( pwm_left, pwm_right, cycle )
         rotational_right = 2 * pi * (9 - duration_right) / 70;
     end
     % add Gaussian noise
-    array(1, 1) = rotational_left + normrnd(0, (rotational_left / 100));
-    array(1, 2) = rotational_right + normrnd(0, (rotational_right / 100));
+    array(1, 1) = rotational_left + normrnd(0, (rotational_left / 10));
+    array(1, 2) = rotational_right + normrnd(0, (rotational_right / 10));
     array(1, 3) = cycle;
     array(2, 1) = rotational_left;
     array(2, 2) = rotational_right;
