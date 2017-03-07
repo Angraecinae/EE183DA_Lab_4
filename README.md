@@ -39,7 +39,7 @@ Kalman filtering is then performed through the following equations:
 
 Equation 3: The Kalman gain, Kk in equation 1 above, is calculated by working with the Covariance matrix of the inputs, propagated to represent the measurements added with some measurement noise R. H in these equations is equivalent to our C matrix. Through Kalman gain, the next state and covariance can thus be calculated.
 
-#### Car modeling
+#### Car Modeling
 
 Equation 4: Those formula are used in the  real life of car moving. According to to the formula between theta and arc length, arc length equals the theta multiply by radius, I found the the velocity of the car. When the car is moving on a plan, its velocity equal to wheel's angular multiply by wheel's radius. Then we can use velocity of car to find the velocity in x and y axis. In the same way, we can use the angular velocity of wheel to find the arc length of the car turned and transfer it to car's angular velocity. Let the car turns with a theta angle, left wheel has a positive velocity, and the right wheel has a negative velocity.
 
