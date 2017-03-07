@@ -52,6 +52,8 @@ Equation 3: The Kalman gain, Kk in equation 1 above, is calculated by working wi
 Equation 4: Those formula are used in the  real life of car moving. According to to the formula between theta and arc length, arc length equals the theta multiply by radius, I found the the velocity of the car. When the car is moving on a plan, its velocity equal to wheel's angular multiply by wheel's radius. Then we can use velocity of car to find the velocity in x and y axis. In the same way, we can use the angular velocity of wheel to find the arc length of the car turned and transfer it to car's angular velocity. Let the car turns with a theta angle, left wheel has a positive velocity, and the right wheel has a negative velocity.
 
 ## Results:
+
+### Motion Planning
 Using MATLAB, we were able to successfully implement a program to simulate hardware and software aspects of the vehicular system. By writing functions to model interactions between individual components of the system (such as the microcontroller unit, infrared sensor, inertial measurement unit, and rotational servos), and slaving the calling of each function to a centralized function in lieu of an onboard clock, we were able to mimic the process of dead-reckoning to determine the vehicle’s position relative to its starting position, calculate a new vector towards its goal position, and monitor its progress using several metrics - real, filtered, and unfiltered.      
 
 ![alt text](https://raw.githubusercontent.com/Angraecinae/EE183DA_Lab_4/master/Lab5%20images/results%201.png "Results 1")
@@ -75,7 +77,7 @@ As expected, as the sampling rate decreases, the error in the unfiltered state e
 
 Figure 5: Graph plotting the filtered state (in green) versus the actual state (in red) and the unfiltered state (in blue), for a trajectory plotted between predefined waypoints set at {10, 10}, {15, 5}, {20, 10}, {25, 5}, {30, 10}, and {35, 5}. The current operational state is updated every 50 ms. 
 
-
+### Trajectory Planning
 ![alt text](https://raw.githubusercontent.com/Angraecinae/EE183DA_Lab_4/master/Lab5%20images/map_1.png "Map 1")
 
 ![alt text](https://raw.githubusercontent.com/Angraecinae/EE183DA_Lab_4/master/Lab5%20images/map_2.png "Map 2")
