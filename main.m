@@ -1,20 +1,46 @@
 clear all;
 close all;
+% create offline map with predefined boundaries
+map = zeros(80, 160);
+% initialize map boundaries
+for i = 1:80
+    map(i, 1) = 1;
+    map(i, 160) = 1;
+end
+
+for i = 1:160
+    map(1, i) = 1;
+    map(80, i) = 1;
+end
+% initialize obstacle bypass waypoints
+obstacles{1, 1} = [20, 100, 0];
+obstacles{1, 2} = [30, 60, 0];
+obstacles{1, 3} = [40, 100, 0];
+obstacles{1, 4} = [50, 60, 0];
+obstacles{1, 5} = [60, 100, 0];
+% initialize obstacles in the map
+for i = 1:length(obstacles)
+    coor = obstacles{1, i};
+    if (coor(1, 2) == 100)
+        for j = 1:coor(1, 2) - 15
+            map(coor(1, 1), j) = 1;
+        end
+    else
+        for j = coor(1, 2) + 15:160
+            map(coor(1, 1), j) = 1;
+        end        
+    end
+end
 % initialize initial positions
-position = [0, 0, 0];
-position_real = [0, 0, 0];
-position_sim = [0, 0, 0];
+position = [10, 10, 0];
+position_real = [10, 10, 0];
+position_sim = [10, 10, 0];
 % initialize desired end state
-coordinate_list{1, 1} = inputCoor([10, 10, 0]);
-coordinate_list{1, 2} = inputCoor([15, 5, 0]);
-coordinate_list{1, 3} = inputCoor([20, 10, 0]);
-coordinate_list{1, 4} = inputCoor([25, 5, 0]);
-coordinate_list{1, 5} = inputCoor([30, 10, 0]);
-coordinate_list{1, 6} = inputCoor([35, 5, 0]);
+coordinate_list = getTraj(obstacles, position, [70, 150, 0]);
 cycle = 0;
 counter = 0;
 % initialize state and covariance matrices
-state = [0, 0, 0, 0, 0, 0];
+state = [position(1, 1), position(1, 2), 0, 0, 0, 0];
 cov = [0 0 0 0 0 0; ...
        0 0 0 0 0 0; ...
        0 0 0 0 0 0; ...
@@ -73,6 +99,17 @@ for i = 1:length(coordinate_list)
         y_position_sim(1, counter) = position_sim(1, 2); % unfiltered
     end
 end
+% graph results
 figure, plot(x_position_sim, y_position_sim, 'b-', ...
              x_position_real, y_position_real, 'r-', ...
-             x_position_kal, y_position_kal, 'g-'); 
+             x_position_kal, y_position_kal, 'g-');
+% graph boundaries and obstacles
+hold on;
+for a = 1:80
+    for b = 1:160
+        if (map(a, b) == 1)
+            scatter(a, b, 'y');
+        end
+    end
+end
+hold off;
