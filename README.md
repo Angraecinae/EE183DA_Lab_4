@@ -78,9 +78,17 @@ As expected, as the sampling rate decreases, the error in the unfiltered state e
 Figure 5: Graph plotting the filtered state (in green) versus the actual state (in red) and the unfiltered state (in blue), for a trajectory plotted between predefined waypoints set at {10, 10}, {15, 5}, {20, 10}, {25, 5}, {30, 10}, and {35, 5}. The current operational state is updated every 50 ms. 
 
 ### Trajectory Planning
+Using an offline map of obstacles, saved as coordinates to available bypass waypoints, our trajectory planner extracts these coordinates and adds them to a flight plan of waypoint coordinates for it to head towards.
+
 ![alt text](https://raw.githubusercontent.com/Angraecinae/EE183DA_Lab_4/master/Lab5%20images/map_1.png "Map 1")
 
+Figure 6: Graph plotting the filtered state (in green) versus the actual state (in red) and the unfiltered state (in blue), for a trajectory plotted between predefined obstacle waypoints (obstacles are graphed as yellow circles). The current operational state is updated every 50 ms. 
+
 ![alt text](https://raw.githubusercontent.com/Angraecinae/EE183DA_Lab_4/master/Lab5%20images/map_2.png "Map 2")
+
+Figure 7: Graph plotting the filtered state (in green) versus the actual state (in red) and the unfiltered state (in blue), for a trajectory plotted between predefined obstacle waypoints (obstacles are graphed as yellow circles). The current operational state is updated every 50 ms. 
+
+As evidenced by the above, by refining the definition of these bypass waypoints relative to the actual obstacle locations, we are able to account for expected error in actual position vs. sensed position to ensure that the car's real trajectory does not intersect with an obstacle.
 
 ## Conclusion
 In conclusion, based on the results as shown in Figures 2 through 5, we were able to successfully generate a simulation that can be modified to more accurately represent the motion of a two-wheeled vehicle with additional experiments. Due to the modular design of our MATLAB code, it will be easy to integrate additional improvements and modifications as necessary to account for unforeseen nonlinearities or better models of noise to result in a more accurate prediction of our physical model’s motion.    
