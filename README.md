@@ -60,9 +60,7 @@ As expected, as the sampling rate decreases, the error in the unfiltered state e
 
 Figure 5: Graph plotting the filtered state (in green) versus the actual state (in red) and the unfiltered state (in blue), for a trajectory plotted between predefined waypoints set at {10, 10}, {15, 5}, {20, 10}, {25, 5}, {30, 10}, and {35, 5}. The current operational state is updated every 50 ms. 
 
-In the figure below (Figure 6), we show the block diagram systems view of our simulation.
 
-Figure 6: Block diagram representation of our simulated model.
 
 ## Conclusion
 In conclusion, based on the results as shown in Figures 2 through 5, we were able to successfully generate a simulation that can be modified to more accurately represent the motion of a two-wheeled vehicle with additional experiments. Due to the modular design of our MATLAB code, it will be easy to integrate additional improvements and modifications as necessary to account for unforeseen nonlinearities or better models of noise to result in a more accurate prediction of our physical model’s motion.    
