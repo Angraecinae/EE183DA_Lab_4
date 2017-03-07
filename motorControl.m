@@ -7,7 +7,7 @@ function [ array ] = motorControl( magnitude, theta_1, theta_2 )
 %         pwm_right, double [0 to 100]
 %         interval, double [ms]
 %         turn, integer [0 to 2]
-    interval = timingInterval(50); % [ms]
+    interval = timingInterval(25); % [ms]
     if (abs(magnitude) <= 0.1) % within 0.1cm of goal 
         if (abs(theta_2) <= 0.0001) % within < 0.5 degrees of goal
             % reached goal, stop movement
