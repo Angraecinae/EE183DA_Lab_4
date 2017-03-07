@@ -4,26 +4,27 @@
 In this lab report, we will simulate the movement of a two-wheeled robot from a starting point to a specified end point in {x, y, theta} given certain obstacles that would impede a straight line path to the endpoint, where {x, y} defines its location in the horizontal plane and {theta} defines its rotational state relative to the vertical z-axis. We will first derive a mathematical input/output model of the system dynamics, and define sensor and actuator responses based on experimental results and estimates from testing our sensors and components. Afterwards, we will use trajectory planning to map out a path (if such exists) that generates an obstacle free path to lead the robot from the starting point to the end point.
 
 ## Bill of Materials:
-⋅⋅* MATLAB
-⋅⋅* Inertial Measurement Unit (1x)
-⋅⋅* Infrared Sensor and Infrared LED (2x)
-⋅⋅* ESP8266 Microcontroller (1x)
-⋅⋅* ESP12E Motor Shield (1x)
-⋅⋅* FS90 Micro 9g Continuous Rotation Servo (2x)
-⋅⋅* Jumper Wires (10x)
-## Methods:
-## Algorithm:
+* MATLAB
+* Inertial Measurement Unit (1x)
+* Infrared Sensor and Infrared LED (2x)
+* ESP8266 Microcontroller (1x)
+* ESP12E Motor Shield (1x)
+* FS90 Micro 9g Continuous Rotation Servo (2x)
+* Jumper Wires (10x)
 
-### Kalman Filter Algorithm
+## Methods:
+### Algorithm:
+
+#### Kalman Filter Algorithm
   The main algorithm used in this system is the Kalman Filter. In simple terms, a Kalman filter is used to distinguish the actual signal from the noise, by making smart estimations given knowledge of the variance of the noise. To do so, the Kalman Filter simulates a measurement, given the input into the system, and then compares the simulated measurement to the actual measurement. Through this comparison, the Kalman filter generates a value, the Kalman gain, used with the covariance of the outputs, in order to make an optimal guess of the actual state evolution and correct itself to make better guesses in the future. In the case of our system, the Kalman filter takes in a state input: x, y, velocity in the x direction, velocity in the y direction, theta, and angular velocity , a covariance input and measurements from the sensors: velocity, measured by the rotation of the wheels, acceleration, theta, and angular rotation. The state and covariance is propagated through the state space equations, shown below in the mathematical formulation section, to obtain a simulated measurement, which is then compared against the measured velocities in the x, y direction as well as theta to generate a Kalman gain. The Kalman gain is fed back to the equation to estimate the next state, which is then reiterated through the same process against new measurements. See Figure 1 below for details:
 
 Figure 1: Schematic of Kalman Filter design. The plant is represented by blocks A, B, T and H, which show a closed loop path. The top path is the representation of the actual measurement whereas the bottom path is the simulated measurement. “Residual” is the difference between the simulated and actual outputs of the system, which are then multiplied by the Kalman Gain Kj, which is then fed back into the system. While the schematic represents Kj as a seemingly fixed constant, the Kalman Gain is updated each iteration.
 
-### Trajectory Planning Algorithm
+#### Trajectory Planning Algorithm
   Because we are given this task in offline mode, the simulated system has knowledge of its surroundings and the obstacles in this space. The obstacles in this map are represented as discrete points on a 2D plane, which include all other possible points our robot can exist in. Therefore, a function is created to take in the map as an input and iterate through the obstacles in order to generate an ideal output path to avoid these points and minimize travel distance. The output path is then fed to the simulation to drive the car through various waypoints to achieve the goal of getting from the starting point to the endpoint.
   
-## Mathematical Formulation
-### Kalman Filter
+### Mathematical Formulation
+#### Kalman Filter
 The Mathematical Formulation for the Kalman Filter is derived from the basic Newtonian equations of motion:
 
 
@@ -38,11 +39,9 @@ Kalman filtering is then performed through the following equations:
 
 Equation 3: The Kalman gain, Kk in equation 1 above, is calculated by working with the Covariance matrix of the inputs, propagated to represent the measurements added with some measurement noise R. H in these equations is equivalent to our C matrix. Through Kalman gain, the next state and covariance can thus be calculated.
 
-### Car modeling
+#### Car modeling
 
 Equation 4: Those formula are used in the  real life of car moving. According to to the formula between theta and arc length, arc length equals the theta multiply by radius, I found the the velocity of the car. When the car is moving on a plan, its velocity equal to wheel's angular multiply by wheel's radius. Then we can use velocity of car to find the velocity in x and y axis. In the same way, we can use the angular velocity of wheel to find the arc length of the car turned and transfer it to car's angular velocity. Let the car turns with a theta angle, left wheel has a positive velocity, and the right wheel has a negative velocity.
-
-
 
 
 ## Results:
